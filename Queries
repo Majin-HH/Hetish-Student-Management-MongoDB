@@ -1,0 +1,112 @@
+// ============================================
+// Student Management System Using MongoDB
+// ============================================
+
+// 1. Create Database
+use Students
+
+// 2. Create Collection
+db.createCollection("students")
+
+// 3. Insert 30 Students
+db.students.insertMany([
+  {roll:101, name:"Shrishti Singh", age:19, marks:85, city:"Delhi"},
+  {roll:102, name:"Prathana Bajaj", age:18, marks:72, city:"Lucknow"},
+  {roll:103, name:"Rhimsha Khan", age:18, marks:62, city:"Ghaziabad"},
+  {roll:104, name:"Anchal Gupta", age:19, marks:88, city:"Varanasi"},
+  {roll:105, name:"Chandan Pal", age:19, marks:63, city:"Lucknow"},
+  {roll:106, name:"Ishika Shrivastava", age:19, marks:83, city:"Prayagraj"},
+  {roll:107, name:"Kritika Verma", age:18, marks:65, city:"Ghaziabad"},
+  {roll:108, name:"Saksham Rao", age:19, marks:71, city:"Ghaziabad"},
+  {roll:109, name:"Devyani Joshi", age:19, marks:93, city:"Ghaziabad"},
+  {roll:110, name:"Aryan Malhotra", age:19, marks:61, city:"Varanasi"},
+  {roll:111, name:"Nikhat Ali", age:20, marks:54, city:"Ghaziabad"},
+  {roll:112, name:"Rohan Tripathi", age:20, marks:95, city:"Prayagraj"},
+  {roll:113, name:"Tanisha Kapoor", age:19, marks:57, city:"Delhi"},
+  {roll:114, name:"Faizan Ahmed", age:19, marks:85, city:"Prayagraj"},
+  {roll:115, name:"Vanshika Rawat", age:20, marks:60, city:"Lucknow"},
+  {roll:116, name:"Lakshay Sethi", age:18, marks:61, city:"Noida"},
+  {roll:117, name:"Muskan Jaiswal", age:19, marks:84, city:"Varanasi"},
+  {roll:118, name:"Harshvardhan Yadav", age:20, marks:90, city:"Ghaziabad"},
+  {roll:119, name:"Gungun Mishra", age:20, marks:94, city:"Lucknow"},
+  {roll:120, name:"Sarthak Bhatt", age:20, marks:61, city:"Prayagraj"},
+  {roll:121, name:"Alisha Khan", age:20, marks:95, city:"Noida"},
+  {roll:122, name:"Divyanshu Pandey", age:19, marks:93, city:"Lucknow"},
+  {roll:123, name:"Kashish Arora", age:20, marks:94, city:"Delhi"},
+  {roll:124, name:"Rajat Chauhan", age:19, marks:81, city:"Delhi"},
+  {roll:125, name:"Shivangi Dubey", age:20, marks:61, city:"Ghaziabad"},
+  {roll:126, name:"Yashwant Rana", age:18, marks:60, city:"Delhi"},
+  {roll:127, name:"Bhavya Saxena", age:19, marks:73, city:"Ghaziabad"},
+  {roll:128, name:"Nitya Agarwal", age:18, marks:63, city:"Delhi"},
+  {roll:129, name:"Om Prakash", age:19, marks:95, city:"Ghaziabad"},
+  {roll:130, name:"Tanmay Srivastava", age:19, marks:72, city:"Varanasi"}
+])
+
+// 4. Display All Students
+db.students.find()
+
+// ---------- Comparison Operators ----------
+
+// 5. Equal To ($eq)
+db.students.find({marks: {$eq: 88}})
+
+// 6. Greater Than ($gt)
+db.students.find({marks: {$gt: 85}})
+
+// 7. Less Than ($lt)
+db.students.find({marks: {$lt: 60}})
+
+// 8. Greater Than or Equal To ($gte)
+db.students.find({marks: {$gte: 90}})
+
+// 9. Less Than or Equal To ($lte)
+db.students.find({marks: {$lte: 70}})
+
+// ---------- Update & Delete ----------
+
+// 10. Update Operation
+db.students.updateOne(
+  {roll: 105},
+  {$set: {marks: 95}}
+)
+
+// 11. Delete One Operation
+db.students.deleteOne({roll: 110})
+
+// 12. Delete Many Operation
+db.students.deleteMany({
+  marks: {$lt: 60}
+})
+
+// ---------- Logical Operators ----------
+
+// 13. AND Operation ($and)
+db.students.find({
+  $and: [
+    {marks: {$gt: 80}},
+    {age: 19}
+  ]
+})
+
+// 14. OR Operation ($or)
+db.students.find({
+  $or: [
+    {city: "Lucknow"},
+    {city: "Delhi"}
+  ]
+})
+
+// ---------- Sorting, Limiting, Searching, Counting ----------
+
+// 15. Sort Operation
+db.students.find().sort({marks: 1})    // A. Ascending (lowest to highest)
+db.students.find().sort({marks: -1})   // B. Descending (highest to lowest)
+
+// 16. Limit Operation
+db.students.find().limit(5)
+
+// 17. Search by City
+db.students.find({city: "Lucknow"})
+
+// 18. Count Documents (27 remain after the delete operations)
+db.students.countDocuments()
